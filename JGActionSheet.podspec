@@ -12,5 +12,6 @@ Pod::Spec.new do |s|
   s.source_files  	= "JGActionSheet/*.{h,m}"
   s.frameworks 		= "Foundation", "UIKit", "QuartzCore"
   s.requires_arc 	= true
+  s.dependency 'BlocksKit', '~> 2.2.5'
 
 end

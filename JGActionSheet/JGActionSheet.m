@@ -295,6 +295,16 @@ static BOOL disableCustomEasing = NO;
     return self;
 }
 
+-(void) addAction:(NSString *)title withButtonStyle:(JGActionSheetButtonStyle)buttonStyle andAction:(void (^)(NSObject *))action{
+	NSMutableArray * buttons = [NSMutableArray arrayWithArray: _buttons];
+	UIButton * button = [self makeButtonWithTitle:title style:buttonStyle];
+	[button bk_addEventHandler:action forControlEvents:UIControlEventTouchUpInside];
+	[buttons addObject: button];
+	[self addSubview: button];
+	_buttons = buttons.copy;
+}
+
+
 #pragma mark UI
 
 - (void)setUpForContinuous:(BOOL)continuous {
@@ -508,6 +518,10 @@ static BOOL disableCustomEasing = NO;
     self = [super init];
     
     if (self) {
+		if (_dimmerColor == nil) {
+			_dimmerColor = [UIColor colorWithWhite:0.0f alpha:0.3f];
+		}
+		
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         tap.delegate = self;
         
@@ -677,7 +691,7 @@ static BOOL disableCustomEasing = NO;
     UIView *viewToModify = _scrollViewHost;
     
     if (visible) {
-        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.3f];
+        self.backgroundColor = _dimmerColor;
         
         if (iPad) {
             viewToModify.alpha = 1.0f;

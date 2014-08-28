@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <BlocksKit/BlocksKit.h>
+#import <BlocksKit/UIControl+BlocksKit.h>
 
 /**
  Button styles for JGActionSheetSection.
@@ -99,6 +101,8 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
  */
 - (void)setButtonStyle:(JGActionSheetButtonStyle)buttonStyle forButtonAtIndex:(NSUInteger)index;
 
+-(void)addAction: (NSString *) title withButtonStyle: (JGActionSheetButtonStyle) buttonStyle andAction: ( void ( ^ )( NSObject *sender) )action;
+
 @end
 
 
@@ -160,6 +164,11 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
  The view in which the action sheet is presented.
  */
 @property (nonatomic, weak, readonly) UIView *targetView;
+
+/**
+ The action sheet background color used to dim the content behind the Action Sheet.
+ */
+@property (nonatomic, weak) UIColor *dimmerColor;
 
 /**
  The sections of the action sheet.
